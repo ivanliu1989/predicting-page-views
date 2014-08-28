@@ -9,3 +9,9 @@ ggplot(top.1000.sites,aes(y=log(PageViews), x=log(UniqueVisitors))) + geom_point
     geom_smooth(method='lm',se=F)
 dev.off()
 ggplot(top.1000.sites,aes(log(PageViews))) + geom_density()
+
+# define slop and intercept
+lm.fit <- lm(log(PageViews)~log(UniqueVisitors), data=top.1000.sites)
+summary(lm.fit)
+    # quantile(residuals(lm.fit))
+    # plot(lm.fit)
