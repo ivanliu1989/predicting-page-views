@@ -26,3 +26,13 @@ dev.off()
 attach(top.1000.sites)
 cov(log(PageViews),log(UniqueVisitors))
 detach(top.1000.sites)
+
+top.1000.sites <- transform(top.1000.sites, repeatedVisitor = PageViews - UniqueVisitors)
+ggplot(top.1000.sites,aes(y=log(PageViews), x=log(repeatedVisitor))) + geom_point() +
+    geom_smooth(method='lm',se=F)
+lm.fit.2 <- lm(repeatedVisitor ~ HasAdvertising + InEnglish + TLD + Reach + Category, top.1000.sites)
+summary(lm.fit.2)
+png('lm_plot_2.png')
+par(mfcol = c(2,2))
+plot(lm.fit.2)
+dev.off()
